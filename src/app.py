@@ -29,139 +29,144 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP],
 server = app.server
 
 app.layout = dbc.Container([
-    dbc.Row(
-        [
-            dbc.Col(html.H4("Global Renewable Energy Progress (1965-2022)", className="ml-2",
-                            style={"font-family": "Times New Roman", "font-weight": "bold", 'color': '#3a3733',
-                                   'marginTop': 20})),
+    html.Div([
+        dbc.Row(
+            [
+                dbc.Col(html.H4("Global Renewable Energy Progress (1965-2022)", className="ml-2",
+                                style={"font-family": "Times New Roman", "font-weight": "bold", 'color': '#3a3733',
+                                       'marginTop': 20})),
+                dbc.Col([
+                    dbc.Button(
+                        "Code",
+                        href="https://github.com/jatinmahour/Renewable-Energy-Progress/blob/main/main.py",
+                        # download="my_data.txt",
+                        external_link=True,
+                        target="_blank",
+                        color="dark",
+                        style={"font-family": "Times New Roman", 'margin-left': '770px', 'margin-top': '10px',
+                               "width": 60}
+                    )
+                ]),
+            ], style={'background-color': '#08F075 '}
+        ),
+        dbc.Row([
             dbc.Col([
-                dbc.Button(
-                    "Code",
-                    href="https://github.com/jatinmahour/Renewable-Energy-Progress/blob/main/main.py",
-                    # download="my_data.txt",
-                    external_link=True,
-                    target="_blank",
-                    color="dark",
-                    style={"font-family": "Times New Roman", 'margin-left': '770px', 'margin-top': '10px',
-                           "width": 60}
-                )
-            ]),
-        ], style={'background-color': '#08F075 '}
-    ),
-    dbc.Row([
-        dbc.Col([
-            dbc.Row([
-                html.H5("Select Entity", className="ml-2",
-                        style={"font-family": "Times New Roman", "font-weight": "bold",'color': '#3a3733', 'marginTop': 20, 'padding': 5,
-                               'marginLeft': 10
-                               }),
-                dcc.Dropdown(id='select_entity', options=[
-                    {'label': x, 'value': x} for x in sorted(df.Entity.unique())
-                ],
-                             optionHeight=35,  # height/space between dropdown options
-                             value=('China', 'India', 'Japan', 'Germany', 'United States'),
-                             # dropdown value selected automatically when page loads
-                             disabled=False,  # disable dropdown value selection
-                             multi=True,  # allow multiple dropdown values to be selected
-                             searchable=True,  # allow user-searching of dropdown values
-                             search_value='',  # remembers the value searched in dropdown
-                             placeholder='Please select...',
-                             # gray, default text shown when no option is selected
-                             clearable=True,  # allow user to removes the selected value
-                             style={'width': "100%"}
-                             )
-            ]),
-            dbc.Row([
-                html.H5('Choose Analytics',
-                        style={"font-family": "Times New Roman","font-weight": "bold", 'color': '#3a3733', 'marginTop': 20, 'padding': 5,
-                               'marginLeft': 10
-                               }),
-                dcc.Dropdown(id='options', options=[
-                    {'label': 'Renewables (% equivalent primary energy)',
-                     'value': 'Renewables (% equivalent primary energy)'},
-                    {'label': 'Renewables (% electricity)',
-                     'value': 'Renewables (% electricity)'},
-                    {'label': 'Electricity from hydro (TWh)',
-                     'value': 'Electricity from hydro (TWh)'},
-                    {'label': 'Hydro (% equivalent primary energy)',
-                     'value': 'Hydro (% equivalent primary energy)'},
-                    {'label': 'Hydro (% electricity)',
-                     'value': 'Hydro (% electricity)'},
-                    {'label': 'Electricity from wind (TWh)',
-                     'value': 'Electricity from wind (TWh)'},
-                    {'label': 'Wind Energy Capacity (GW)',
-                     'value': 'Wind Capacity'},
-                    {'label': 'Wind (% equivalent primary energy)',
-                     'value': 'Wind (% equivalent primary energy)'},
-                    {'label': 'Wind (% electricity)',
-                     'value': 'Wind (% electricity)'},
-                    {'label': 'Electricity from solar (TWh)',
-                     'value': 'Electricity from solar (TWh)'},
-                    {'label': 'Solar Capacity',
-                     'value': 'Solar Capacity'},
-                    {'label': 'Solar (% equivalent primary energy)',
-                     'value': 'Solar (% equivalent primary energy)'},
-                    {'label': 'Solar (% electricity)',
-                     'value': 'Solar (% electricity)'},
-                    {'label': 'Biofuels Production - TWh - Total',
-                     'value': 'Biofuels Production - TWh - Total'},
-                    {'label': 'Geothermal Capacity',
-                     'value': 'Geothermal Capacity'},
-                ],
-                             optionHeight=35,  # height/space between dropdown options
-                             value='Renewables (% equivalent primary energy)',
-                             # dropdown value selected automatically when page loads
-                             disabled=False,  # disable dropdown value selection
-                             multi=False,  # allow multiple dropdown values to be selected
-                             searchable=True,  # allow user-searching of dropdown values
-                             search_value='',  # remembers the value searched in dropdown
-                             placeholder='Please select...',
-                             # gray, default text shown when no option is selected
-                             clearable=True,  # allow user to removes the selected value
-                             style={'width': "100%"}
-                             )
-            ])
-        ], md=4),
-        dbc.Col([
-            html.Div([
-                dbc.Row(
-                    html.H3(
-                        "Renewable energy sources are growing quickly and will play a vital role in tackling climate change.",
-                        className="ml-2",
-                        style={"font-family": "Times New Roman", 'color': '#C51B1B', "font-weight": "bold",
-                               'padding': 10,
-                               'font-style': ' oblique',
-                               'marginLeft': 30,
-                               'marginTop': 20})
-                ),
-                dbc.Row(
+                dbc.Row([
+                    html.H5("Select Entity", className="ml-2",
+                            style={"font-family": "Times New Roman", "font-weight": "bold", 'color': '#3a3733',
+                                   'marginTop': 20, 'padding': 5,
+                                   'marginLeft': 10
+                                   }),
+                    dcc.Dropdown(id='select_entity', options=[
+                        {'label': x, 'value': x} for x in sorted(df.Entity.unique())
+                    ],
+                                 optionHeight=35,  # height/space between dropdown options
+                                 value=('China', 'India', 'Japan', 'Germany', 'United States'),
+                                 # dropdown value selected automatically when page loads
+                                 disabled=False,  # disable dropdown value selection
+                                 multi=True,  # allow multiple dropdown values to be selected
+                                 searchable=True,  # allow user-searching of dropdown values
+                                 search_value='',  # remembers the value searched in dropdown
+                                 placeholder='Please select...',
+                                 # gray, default text shown when no option is selected
+                                 clearable=True,  # allow user to removes the selected value
+                                 style={'width': "100%"}
+                                 )
+                ]),
+                dbc.Row([
+                    html.H5('Choose Analytics',
+                            style={"font-family": "Times New Roman", "font-weight": "bold", 'color': '#3a3733',
+                                   'marginTop': 20, 'padding': 5,
+                                   'marginLeft': 10
+                                   }),
+                    dcc.Dropdown(id='options', options=[
+                        {'label': 'Renewables (% equivalent primary energy)',
+                         'value': 'Renewables (% equivalent primary energy)'},
+                        {'label': 'Renewables (% electricity)',
+                         'value': 'Renewables (% electricity)'},
+                        {'label': 'Electricity from hydro (TWh)',
+                         'value': 'Electricity from hydro (TWh)'},
+                        {'label': 'Hydro (% equivalent primary energy)',
+                         'value': 'Hydro (% equivalent primary energy)'},
+                        {'label': 'Hydro (% electricity)',
+                         'value': 'Hydro (% electricity)'},
+                        {'label': 'Electricity from wind (TWh)',
+                         'value': 'Electricity from wind (TWh)'},
+                        {'label': 'Wind Energy Capacity (GW)',
+                         'value': 'Wind Capacity'},
+                        {'label': 'Wind (% equivalent primary energy)',
+                         'value': 'Wind (% equivalent primary energy)'},
+                        {'label': 'Wind (% electricity)',
+                         'value': 'Wind (% electricity)'},
+                        {'label': 'Electricity from solar (TWh)',
+                         'value': 'Electricity from solar (TWh)'},
+                        {'label': 'Solar Capacity',
+                         'value': 'Solar Capacity'},
+                        {'label': 'Solar (% equivalent primary energy)',
+                         'value': 'Solar (% equivalent primary energy)'},
+                        {'label': 'Solar (% electricity)',
+                         'value': 'Solar (% electricity)'},
+                        {'label': 'Biofuels Production - TWh - Total',
+                         'value': 'Biofuels Production - TWh - Total'},
+                        {'label': 'Geothermal Capacity',
+                         'value': 'Geothermal Capacity'},
+                    ],
+                                 optionHeight=35,  # height/space between dropdown options
+                                 value='Renewables (% equivalent primary energy)',
+                                 # dropdown value selected automatically when page loads
+                                 disabled=False,  # disable dropdown value selection
+                                 multi=False,  # allow multiple dropdown values to be selected
+                                 searchable=True,  # allow user-searching of dropdown values
+                                 search_value='',  # remembers the value searched in dropdown
+                                 placeholder='Please select...',
+                                 # gray, default text shown when no option is selected
+                                 clearable=True,  # allow user to removes the selected value
+                                 style={'width': "100%"}
+                                 )
+                ])
+            ], md=4),
+            dbc.Col([
+                html.Div([
+                    dbc.Row(
+                        html.H3(
+                            "Renewable energy sources are growing quickly and will play a vital role in tackling climate change.",
+                            className="ml-2",
+                            style={"font-family": "Times New Roman", 'color': '#C51B1B', "font-weight": "bold",
+                                   'padding': 10,
+                                   'font-style': ' oblique',
+                                   'marginLeft': 30,
+                                   'marginTop': 20})
+                    ),
+                    dbc.Row(
+                        html.H5(
+                            "Renewable energy will play a key role in decarbonizing our energy systems in the coming decades."
+                            " But how rapidly is our production of renewable energy changing? What technologies look most promising"
+                            " in transforming our energy mix? "
+                            "In this dashboard we look at the data on renewable energy technologies across the world, "
+                            "the combination of hydropower, solar, wind, geothermal, and modern biofuels; what share of energy "
+                            "they account for today, and how quickly this is changing.", className="mb-4",
+                            style={"font-family": "Times New Roman", 'color': '#3a3733', "font-weight": "bold",
+                                   'marginLeft': 30})),
                     html.H5(
-                        "Renewable energy will play a key role in decarbonizing our energy systems in the coming decades."
-                        " But how rapidly is our production of renewable energy changing? What technologies look most promising"
-                        " in transforming our energy mix? "
-                        "In this dashboard we look at the data on renewable energy technologies across the world, "
-                        "the combination of hydropower, solar, wind, geothermal, and modern biofuels; what share of energy "
-                        "they account for today, and how quickly this is changing.", className="mb-4",
-                        style={"font-family": "Times New Roman", 'color': '#3a3733', "font-weight": "bold",
-                               'marginLeft': 30})),
-                html.H5(
-                    "We have selected the top five global economies and compared their renewable energy"
-                    " generation and consumption over the years. There are many entities to choose from including "
-                    "high-income countries, upper middle-income countries, lower middle-income countries, OECD(BP) etc..", className="mb-4",
-                    style={"font-family": "Times New Roman", 'color': '#3a3733',
-                           "font-weight": "bold",
-                           'marginLeft': 30})
+                        "We have selected the top five global economies and compared their renewable energy"
+                        " generation and consumption over the years. There are many entities to choose from including "
+                        "high-income countries, upper middle-income countries, lower middle-income countries, OECD(BP) etc..",
+                        className="mb-4",
+                        style={"font-family": "Times New Roman", 'color': '#3a3733',
+                               "font-weight": "bold",
+                               'marginLeft': 30})
 
-            ])
-        ], md=8)
-    ]),
-    html.Hr(),
+                ])
+            ], md=8)
+        ]),
+        html.Hr(),
 
-    dbc.Row(html.Div([dcc.Graph(id="chart", figure={})])),
-    dbc.Row(
-        html.H6("Dashboard: By Jatin Mahaur")
-    )
-], fluid=True)
+        dbc.Row(html.Div([dcc.Graph(id="chart", figure={})])),
+        dbc.Row(
+            html.H6("Dashboard: By Jatin Mahaur")
+        )
+    ])
+], fluid='True')
 
 
 @app.callback(
@@ -178,8 +183,8 @@ def update_output(value_chosen, option_chosen):
         else:
             dff = df[df["Entity"] == value_chosen]
         fig = px.line(dff, x="Year", y="Renewables (% equivalent primary energy)",
-                      color='Entity', markers=True,color_discrete_sequence=px.colors.qualitative.G10,
-                      width=1800, height=600)
+                      color='Entity', markers=True, color_discrete_sequence=px.colors.qualitative.G10,
+        )
         fig.update_layout(
             title='Share of primary energy consumption from renewable sources',
             title_font=dict(size=30,
@@ -188,7 +193,7 @@ def update_output(value_chosen, option_chosen):
             title_x=0.055,  # Title aligned with grid
             title_y=0.88,  # Title positioned near the top vertically
             plot_bgcolor='#F5F7FA',
-            yaxis_ticksuffix = "%"
+            yaxis_ticksuffix="%"
         )
         fig.update_xaxes(
             mirror=True,
@@ -235,7 +240,7 @@ def update_output(value_chosen, option_chosen):
             title_x=0.055,  # Title aligned with grid
             title_y=0.88,  # Title positioned near the top vertically
             plot_bgcolor='#F5F7FA',
-            yaxis_ticksuffix = "%"
+            yaxis_ticksuffix="%"
         )
         fig.update_xaxes(
             mirror=True,
@@ -282,7 +287,7 @@ def update_output(value_chosen, option_chosen):
             title_x=0.073,  # Title aligned with grid
             title_y=0.88,  # Title positioned near the top vertically
             plot_bgcolor='#F5F7FA',
-            yaxis_ticksuffix = " (TWh)"
+            yaxis_ticksuffix=" (TWh)"
         )
         fig.update_xaxes(
             mirror=True,
@@ -770,7 +775,7 @@ def update_output(value_chosen, option_chosen):
             title_x=0.07,  # Title aligned with grid
             title_y=0.88,  # Title positioned near the top vertically
             plot_bgcolor='#F5F7FA',
-            yaxis_ticksuffix = " (TWh)"
+            yaxis_ticksuffix=" (TWh)"
         )
         fig.update_xaxes(
             mirror=True,
